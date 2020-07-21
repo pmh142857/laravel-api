@@ -35,7 +35,7 @@ class AuthController extends Controller
        $encryptedPass = Hash::make($request->password);
        $user = new User;
        try {
-            $user->name     = $request->name;
+            // $user->name     = $request->name;
             $user->email    = $request->email;
             $user->password = $encryptedPass;
             $user->save();
@@ -66,4 +66,36 @@ class AuthController extends Controller
             
         }
     }
+
+    // Save user info name, lastname , photo
+    public function saveUserInfo (Request $request){
+        $user = User::find(Auth::user()->id);
+        $user->name = $request->name;
+        $user->lastname = $request->lastname;
+        $photo ='';
+        // kiem tra neu chon anh
+         if($request->photo!=''){
+             // luu ten anh khong bi trung
+             $photo = time().'.jpg';
+             // giai ma anh va luu lai
+             file_put_contents('storage/profiles/'.$photo,base64_decode($request->photo));
+            $user->photo = $photo;
+        }
+        $user->update();
+
+        return response()->json([
+            'success'   => true,
+            'photo'     => $photo
+        ]);
+    }
+
+
+
+
+
+
+
+
+
+
 }

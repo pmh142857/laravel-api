@@ -18,10 +18,10 @@ class PostsController extends Controller
         // check if post has photo
         if($request->photo != ''){
             // gan ten vs time 
-            $photo = time().'jpg';
+            $photo = time().'.jpg';
             // link storage 
-            file_put_contents('storage/posts/'.$photo,base64_decode($request->$photo));
-            $post->$photo = $photo;
+            file_put_contents('storage/posts/'.$photo,base64_decode($request->photo));
+            $post->photo = $photo;
         }
         $post->save();
         $post->user;
