@@ -36,7 +36,9 @@ class PostsController extends Controller
     public function update(Request $request){
         $post = Post::find($request->id);
         // Check if user is editing his own post
-        if(Auth::user()->id != $request->id){
+        // Kiem tra user id voi post user id
+
+        if(Auth::user()->id != $post->user_id){
             return response()->json([
                 'success' => false,
                 'message' => 'unauthorrized access'
@@ -54,7 +56,8 @@ class PostsController extends Controller
     public function delete(Request $request){
         $post = Post::find($request->id);
         // Check if user is editing his own post
-        if(Auth::user()->id != $request->id){
+        // kiem tra id nguoi post -> xoa
+        if(Auth::user()->id != $post->user_id){
             return response()->json([
                 'success' => false,
                 'message' => 'unauthorrized access'
