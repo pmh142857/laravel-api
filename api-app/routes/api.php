@@ -25,6 +25,8 @@ Route::post('posts/delete','Api\PostsController@delete')->middleware('jwtAuth');
 Route::post('posts/update','Api\PostsController@update')->middleware('jwtAuth');
 Route::get('posts','Api\PostsController@posts')->middleware('jwtAuth');
 
+Route::get('posts/my_posts','Api\PostsController@myPosts')->middleware('jwtAuth');
+
 //  comment
 Route::post('comments/create','Api\CommentsController@create')->middleware('jwtAuth');
 Route::post('comments/delete','Api\CommentsController@delete')->middleware('jwtAuth');
